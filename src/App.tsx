@@ -1,25 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Container } from '@mui/material';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
+import SearchIcon from '@mui/icons-material/Search';
 import './App.css';
+import { useState } from 'react';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 function App() {
+  const [searchText, setSearchText] = useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>, searchText: string) => {
+    event.preventDefault();
+    console.log(searchText);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Container component="main" maxWidth="md">
+      <Box component="section" role="search">
+        <Box
+          component="header"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Typography
+            variant="h4"
+            component="h1"
+            fontWeight={200}
+            align="center"
+          >
+            Looking for a movie?
+          </Typography>
+          <Box component="form" onSubmit={(e) => handleSearch(e, searchText)}>
+            <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+              <InputLabel htmlFor="search-field">Search</InputLabel>
+              <OutlinedInput
+                id="search-field"
+                type="text"
+                value={searchText}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      type="submit"
+                      aria-label="search"
+                      edge="end"
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Search"
+              />
+            </FormControl>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 
