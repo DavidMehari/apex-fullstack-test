@@ -5,10 +5,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useState } from 'react';
 
-const SearchForm = () => {
+const SearchForm = ({ getMovies }: { getMovies: Function }) => {
 
   const [searchText, setSearchText] = useState<string>('');
 
@@ -19,6 +19,7 @@ const SearchForm = () => {
   const handleSearch = (event: React.FormEvent<HTMLFormElement>, searchText: string) => {
     event.preventDefault();
     console.log(searchText);
+    getMovies({ variables: { searchQuery: searchText } })
   };
 
   return (
