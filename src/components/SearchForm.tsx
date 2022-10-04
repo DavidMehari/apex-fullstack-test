@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography';
 import SearchIcon from '@mui/icons-material/Search';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useState } from 'react';
+import { LazyQueryExecFunction, OperationVariables } from '@apollo/client';
 
-const SearchForm = ({ getMovies }: { getMovies: Function }) => {
+const SearchForm = ({ getMovies }: { getMovies: LazyQueryExecFunction<any, OperationVariables> }) => {
 
   const [searchText, setSearchText] = useState<string>('');
 

@@ -1,18 +1,9 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { Container } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
 import ListOfMovies from './components/ListOfMovies';
+import Loading from './components/Loading';
 import SearchForm from './components/SearchForm';
-
-export const SEARCH_MOVIES = gql`
-  query SearchMovies($searchQuery: String!) {
-    searchMovies(query: $searchQuery) {
-      id
-      name
-      overview
-    }
-  }
-`;
+import { SEARCH_MOVIES } from './helpers/apollo';
 
 const App = () => {
   const [getMovies, { called, loading, error, data }] = useLazyQuery(SEARCH_MOVIES);
@@ -22,7 +13,7 @@ const App = () => {
   return (
     <Container component="main" maxWidth="md">
       <SearchForm getMovies={getMovies} />
-      {called && loading && <CircularProgress />}
+      <Loading open={called && loading} />
       {data && <ListOfMovies movies={data.searchMovies} />}
     </Container>
   );
