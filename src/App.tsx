@@ -6,7 +6,7 @@ import MovieDetails from './components/MovieDetails';
 import SearchForm from './components/SearchForm';
 import { SEARCH_MOVIES } from './helpers/apollo';
 import { useState, useEffect } from 'react';
-import { Movie } from './helpers/types';
+import { Movie } from './types/types';
 import Box from '@mui/material/Box';
 
 const App = () => {

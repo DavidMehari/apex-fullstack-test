@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Movie } from '../helpers/types';
+import { Movie } from '../types/types';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

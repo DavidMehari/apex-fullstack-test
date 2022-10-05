@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Movie } from '../helpers/types';
+import { Movie } from '../types/types';
 
 type DisplayMoviesProps = {
   movies: Movie[];

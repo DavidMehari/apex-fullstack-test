@@ -1,4 +1,4 @@
-import { Movie, TmdbQueryResult } from "./types";
+import { Movie, TmdbQueryResult } from "../types/types";
 
 const tmdbApiKey = process.env.REACT_APP_TMDB_API_KEY;
 
