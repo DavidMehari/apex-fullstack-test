@@ -12,6 +12,9 @@ export const SEARCH_MOVIES = gql`
       name
       overview
       score
+      socialMedia {
+        imdb
+      }
       poster {
         tiny
         large

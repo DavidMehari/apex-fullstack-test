@@ -19,13 +19,17 @@ type MovieDetailsProps = {
 
 const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
   const [wikiSummary, setWikiSummary] = useState('');
+  const [wikiLink, setWikiLink] = useState<string | null>(null);
 
   const handleClose = () => {
     setOpen(false);
   };
 
   useEffect(() => {
-    queryWikiAPI(movie.name).then((result) => setWikiSummary(result));
+    queryWikiAPI(movie.name).then((result) => {
+      setWikiSummary(result.summary)
+      setWikiLink(result.url)
+    });
   }, [movie]);
 
   return (
@@ -38,9 +42,6 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
           <DialogContent
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
-            {
-              
-            }
             <Box
               component="img"
               sx={{
@@ -54,6 +55,10 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
               }
               alt={`${movie.name} poster`}
             />
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+              <Button disabled={!wikiLink} href={wikiLink!} target="_blank" rel="noopener" variant="outlined">Wikipedia</Button>
+              <Button href={`https://www.themoviedb.org/movie/${movie.id}`} target="_blank" rel="noopener" variant="outlined">TMDB</Button>
+            </Box>
             <DialogContentText>
               <Typography variant="h6">Wikipedia summary:</Typography>
               <Typography variant="body2" component="p">

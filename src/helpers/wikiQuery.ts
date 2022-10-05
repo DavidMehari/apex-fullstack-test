@@ -3,8 +3,9 @@ export const queryWikiAPI = async ( searchQuery: string ) => {
   const response = await fetch(WIKI_API_URL + searchQuery);
   if (response.ok) {
     const result = await response.json();
-    return result.extract;
+    console.log(result);
+    return { summary: result.extract, url: result.content_urls.desktop.page};
   } else {
-    return "No wikipedia article found";
+    return { summary: "No wikipedia article found", url: null} ;
   }
 }
