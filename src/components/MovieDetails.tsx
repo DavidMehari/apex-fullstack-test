@@ -27,8 +27,8 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
 
   useEffect(() => {
     queryWikiAPI(movie.name).then((result) => {
-      setWikiSummary(result.summary)
-      setWikiLink(result.url)
+      setWikiSummary(result.summary);
+      setWikiLink(result.url);
     });
   }, [movie]);
 
@@ -39,13 +39,31 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
           <DialogTitle variant="h4" align="center">
             {movie.name}
           </DialogTitle>
-          <DialogContent
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
-          >
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+            <Button
+              disabled={!wikiLink}
+              href={wikiLink!}
+              target="_blank"
+              rel="noopener"
+              variant="outlined"
+            >
+              Wikipedia
+            </Button>
+            <Button
+              href={`https://www.themoviedb.org/movie/${movie.id}`}
+              target="_blank"
+              rel="noopener"
+              variant="outlined"
+            >
+              TMDB
+            </Button>
+          </Box>
+          <DialogContent sx={{ display: 'flex', gap: 2, flexDirection: {xs: 'column', sm: 'row'} }}>
             <Box
               component="img"
               sx={{
-                width: '100%',
+                width: {xs: '100%', sm: '50%'},
+                maxWidth: { sm: 300},
                 objectFit: 'contain',
               }}
               src={
@@ -55,10 +73,6 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
               }
               alt={`${movie.name} poster`}
             />
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-              <Button disabled={!wikiLink} href={wikiLink!} target="_blank" rel="noopener" variant="outlined">Wikipedia</Button>
-              <Button href={`https://www.themoviedb.org/movie/${movie.id}`} target="_blank" rel="noopener" variant="outlined">TMDB</Button>
-            </Box>
             <DialogContentText>
               <Typography variant="h6">Wikipedia summary:</Typography>
               <Typography variant="body2" component="p">
