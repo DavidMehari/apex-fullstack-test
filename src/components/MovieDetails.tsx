@@ -37,6 +37,7 @@ const MovieDetails = ({ movie, open, setOpen, setListOFMovies }: MovieDetailsPro
     const result = await queryTmdbApi(movieId);
     if (result.status === 'ok') setListOFMovies(result.relatedMovies!)
     handleClose();
+    window.scrollTo(0, 0);
   }
 
   return (
