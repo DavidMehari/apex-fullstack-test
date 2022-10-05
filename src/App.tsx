@@ -14,6 +14,7 @@ const App = () => {
     useLazyQuery(SEARCH_MOVIES);
   const [selectedMovie, setselectedMovie] = useState<Movie | null>(null);
   const [movieDetailsOpen, setMovieDetailsOpen] = useState(false);
+  const [listOFMovies, setListOFMovies] = useState<Movie[] | null>(null)
 
   useEffect(() => {
     if (!movieDetailsOpen) setselectedMovie(null);
@@ -23,18 +24,26 @@ const App = () => {
     if (selectedMovie) setMovieDetailsOpen(true);
   }, [selectedMovie]);
 
+  useEffect(() => {    
+    if (data?.searchMovies) setListOFMovies(data.searchMovies)
+  }, [data])
+  
   return (
     <Container component="main" maxWidth="md">
+      
       <SearchForm getMovies={getMovies} />
+      
       <Loading open={called && loading} />
+      
       {error && (
         <Alert severity="error">
           <AlertTitle>{error.name}</AlertTitle>Something went wrong
         </Alert>
       )}
-      {data && (
+      
+      {listOFMovies && (
         <ListOfMovies
-          movies={data.searchMovies}
+          movies={listOFMovies!}
           setselectedMovie={setselectedMovie}
         />
       )}
@@ -45,6 +54,7 @@ const App = () => {
             movie={selectedMovie!}
             open={movieDetailsOpen}
             setOpen={setMovieDetailsOpen}
+            setListOFMovies={setListOFMovies}
           />
         </Box>
       )}

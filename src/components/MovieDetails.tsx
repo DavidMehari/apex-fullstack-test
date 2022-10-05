@@ -4,26 +4,23 @@ import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { queryWikiAPI } from '../helpers/wikiQuery';
 import Loading from './Loading';
+import { queryTmdbApi } from '../helpers/tmdbQuery';
 
 type MovieDetailsProps = {
   movie: Movie;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setListOFMovies: React.Dispatch<React.SetStateAction<Movie[] | null>>
 };
 
-const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
+const MovieDetails = ({ movie, open, setOpen, setListOFMovies }: MovieDetailsProps) => {
   const [wikiSummary, setWikiSummary] = useState('');
   const [wikiLink, setWikiLink] = useState<string | null>(null);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     queryWikiAPI(movie.name).then((result) => {
@@ -31,6 +28,16 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
       setWikiLink(result.url);
     });
   }, [movie]);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const getRelatedMovies = async (movieId: string) => {
+    const result = await queryTmdbApi(movieId);
+    if (result.status === 'ok') setListOFMovies(result.relatedMovies!)
+    handleClose();
+  }
 
   return (
     <>
@@ -39,13 +46,13 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
           <DialogTitle variant="h4" align="center">
             {movie.name}
           </DialogTitle>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 2 }}>
             <Button
               disabled={!wikiLink}
               href={wikiLink!}
               target="_blank"
               rel="noopener"
-              variant="outlined"
+              variant="text"
             >
               Wikipedia
             </Button>
@@ -53,9 +60,15 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
               href={`https://www.themoviedb.org/movie/${movie.id}`}
               target="_blank"
               rel="noopener"
-              variant="outlined"
+              variant="text"
             >
               TMDB
+            </Button>
+            <Button
+              onClick={() => getRelatedMovies(movie.id)}
+              variant="contained"
+            >
+              Related
             </Button>
           </Box>
           <DialogContent sx={{ display: 'flex', gap: 2, flexDirection: {xs: 'column', sm: 'row'} }}>
@@ -73,12 +86,12 @@ const MovieDetails = ({ movie, open, setOpen }: MovieDetailsProps) => {
               }
               alt={`${movie.name} poster`}
             />
-            <DialogContentText>
+            <Box>
               <Typography variant="h6">Wikipedia summary:</Typography>
               <Typography variant="body2" component="p">
                 {wikiSummary}
               </Typography>
-            </DialogContentText>
+            </Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Close</Button>

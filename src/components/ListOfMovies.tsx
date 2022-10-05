@@ -7,8 +7,7 @@ type DisplayMoviesProps = {
 };
 
 const ListOfMovies = ({ movies, setselectedMovie }: DisplayMoviesProps) => {
-  console.log(movies);
-
+  
   return (
     <>
       {movies.map((movie: Movie) => (

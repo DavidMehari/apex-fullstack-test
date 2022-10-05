@@ -5,3 +5,11 @@ export type Movie = {
   score: number;
   poster: { tiny: string, large: string };
 };
+
+export type TmdbQueryResult = {
+  id: number
+  overview: string 
+  poster_path: string
+  title: string
+  vote_average: number
+}

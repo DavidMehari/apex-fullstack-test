@@ -19,6 +19,7 @@ const SearchForm = ({ getMovies }: { getMovies: LazyQueryExecFunction<any, Opera
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>, searchText: string) => {
     event.preventDefault();
+    
     if (!searchText.trim()) return;
     getMovies({ variables: { searchQuery: searchText } })
   };
