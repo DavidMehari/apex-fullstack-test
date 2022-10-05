@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 const App = () => {
   const [getMovies, { called, loading, error, data }] =
     useLazyQuery(SEARCH_MOVIES);
+  
   const [selectedMovie, setselectedMovie] = useState<Movie | null>(null);
   const [movieDetailsOpen, setMovieDetailsOpen] = useState(false);
   const [listOFMovies, setListOFMovies] = useState<Movie[] | null>(null)

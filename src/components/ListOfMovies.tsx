@@ -1,4 +1,7 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import { Movie } from '../helpers/types';
 
 type DisplayMoviesProps = {
@@ -7,7 +10,6 @@ type DisplayMoviesProps = {
 };
 
 const ListOfMovies = ({ movies, setselectedMovie }: DisplayMoviesProps) => {
-  
   return (
     <>
       {movies.map((movie: Movie) => (
@@ -29,11 +31,6 @@ const ListOfMovies = ({ movies, setselectedMovie }: DisplayMoviesProps) => {
             <Typography variant="subtitle2" component="h3">
               Rating: { movie.score % 1 ? movie.score.toFixed(1) : movie.score}
             </Typography>
-            {/* <Typography variant="body2" component="p">
-              {movie.overview.length > 180
-                ? movie.overview.substring(0, 180) + '...'
-                : movie.overview}
-            </Typography> */}
           </CardContent>
         </Card>
       ))}
