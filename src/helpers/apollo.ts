@@ -11,6 +11,11 @@ export const SEARCH_MOVIES = gql`
       id
       name
       overview
+      score
+      poster {
+        tiny
+        large
+      }
     }
   }
 `;
