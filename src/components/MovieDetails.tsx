@@ -43,11 +43,11 @@ const MovieDetails = ({ movie, open, setOpen, setListOFMovies }: MovieDetailsPro
   return (
     <>
       {wikiSummary ? (
-        <Dialog maxWidth="md" open={open} onClose={handleClose}>
-          <DialogTitle variant="h4" align="center">
+        <Dialog maxWidth="md" open={open} onClose={handleClose} data-testid="movie-details">
+          <DialogTitle variant="h4" align="center" component="h2">
             {movie.name}
           </DialogTitle>
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, my: 2 }} component="nav" >
             <Button
               disabled={!wikiLink}
               href={wikiLink!}
@@ -87,7 +87,7 @@ const MovieDetails = ({ movie, open, setOpen, setListOFMovies }: MovieDetailsPro
               }
               alt={`${movie.name} poster`}
             />
-            <Box>
+            <Box component="article">
               <Typography variant="h6">Wikipedia summary:</Typography>
               <Typography variant="body2" component="p">
                 {wikiSummary}

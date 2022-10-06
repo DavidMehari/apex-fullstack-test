@@ -1,19 +1,20 @@
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Movie } from '../types/types';
 
-type DisplayMoviesProps = {
+type ListOfMoviesProps = {
   movies: Movie[];
   setselectedMovie: React.Dispatch<React.SetStateAction<Movie | null>>;
 };
 
-const ListOfMovies = ({ movies, setselectedMovie }: DisplayMoviesProps) => {
+const ListOfMovies = ({ movies, setselectedMovie }: ListOfMoviesProps) => {
   return (
-    <>
+    <Box component="section" data-testid="list-of-movies">
       {movies.map((movie: Movie) => (
-        <Card sx={{ display: 'flex', my: 2 }} key={movie.id}>
+        <Card component="article" sx={{ display: 'flex', my: 2 }} key={movie.id}>
           <CardMedia
             component="img"
             sx={{ height: 100, width: 67 }}
@@ -34,7 +35,7 @@ const ListOfMovies = ({ movies, setselectedMovie }: DisplayMoviesProps) => {
           </CardContent>
         </Card>
       ))}
-    </>
+    </Box>
   );
 };
 

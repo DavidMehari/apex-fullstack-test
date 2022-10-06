@@ -25,9 +25,9 @@ const SearchForm = ({ getMovies }: { getMovies: LazyQueryExecFunction<any, Opera
   };
 
   return (
-    <Box component="section" role="search">
+    <Box component="header" role="search">
         <Box
-          component="header"
+          component="section"
           sx={{
             display: 'flex',
             flexDirection: 'column',

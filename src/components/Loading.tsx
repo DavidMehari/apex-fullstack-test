@@ -4,6 +4,7 @@ import Backdrop from '@mui/material/Backdrop';
 const Loading = ({ open }: {open: boolean}) => {
   return (
     <Backdrop
+      data-testid="loading-backdrop-progress"
       sx={{ color: '#fff' }}
       open={open}
     >
